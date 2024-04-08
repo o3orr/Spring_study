@@ -1,0 +1,157 @@
+package org.zerock.controller;
+
+import java.text.SimpleDateFormat;
+
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.SampleDTO;
+import org.zerock.domain.TodoDTO;
+
+import lombok.extern.log4j.Log4j;
+
+@Controller
+//@RestController -> @Controller + @ResponseBody
+@RequestMapping("/sample/*")
+@Log4j
+public class SampleController {
+	
+	//웹에서 날짜처리하는 방법
+//	@InitBinder
+//	public void initBinder(WebDataBinder binder) {
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+//		binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(dateFormat, false));
+//	}
+	
+	
+	@RequestMapping("")
+	public void basic() {
+		log.info("basic..................");
+		
+	}
+	
+	//경로똑같은데 get 요청이 오면 이 메서드 호출
+	@RequestMapping(value = "/basic", method = RequestMethod.GET)
+	public void basicGetPost() {
+		log.info("basic get.............");
+	}
+	
+	//경로똑같은데 post 요청이 오면 이 메서드 호출
+	@RequestMapping(value = "/basic", method = RequestMethod.POST)
+	public void basicGetPost2() {
+		log.info("basic post.............");
+	}
+	
+	
+	
+	
+	@GetMapping("/basic2")
+	public void basicGet2() {
+		log.info("basic post2.............");
+	}
+	
+	@PostMapping("/basic2")
+	public void basicPost2() {
+		log.info("basic post2.............");
+	}
+	
+	
+	
+	//INFO : org.zerock.controller.SampleController - SampleDTO(name=aaa, age=20)
+	@GetMapping("/ex01")
+	public String ex01(SampleDTO dto) {
+		log.info(dto);
+		return "ex01";
+	}
+	
+	// INFO : org.zerock.controller.SampleController - SampleDTO(name=aaa, age=20)
+	@PostMapping("/ex01")
+	public String ex01_(SampleDTO dto) {
+		log.info(dto);
+		return "ex01";
+	}
+	
+	
+	//INFO : org.zerock.controller.SampleController - aaa
+	//INFO : org.zerock.controller.SampleController - 20
+	@GetMapping("/ex02")
+	public String ex02(@RequestParam("name") String name, @RequestParam("age") int age) {
+		log.info(name);
+		log.info(age);
+		return "ex02";
+	}
+	
+//	INFO : org.zerock.controller.SampleController - aaa
+//	INFO : org.zerock.controller.SampleController - 20
+	@PostMapping("/ex02")
+	public String ex02_(@RequestParam("name") String name, @RequestParam("age") int age) {
+		log.info(name);
+		log.info(age);
+		return "ex02";
+	}
+	
+	
+	
+	@GetMapping("/ex03")
+	public String ex03(TodoDTO dto) {
+		log.info(dto);
+		log.info(dto.getTitle());
+		log.info(dto.getDueDate());
+		
+		return "ex03";
+	}
+	
+	
+	// 모델에 담아서 보내는 방식 -> forward 방식
+	@GetMapping("/ex04")
+	public String ex04(SampleDTO dto, int page, Model model) {
+		log.info(dto);
+		log.info(page);
+		
+		model.addAttribute("sample", dto);
+		model.addAttribute("page", page);
+		
+		return "/sample/ex04";
+	}
+	
+	
+	// 리다이렉트 방식
+	@GetMapping("/ex044")
+	public String ex04_(@RequestParam("name2") String name2, @RequestParam("age2") int age2, RedirectAttributes rttr) {
+		
+		rttr.addFlashAttribute("age2", age2);
+		
+		return "redirect:/sample/ex01";
+	}
+	
+	
+	// sample/ex05인 경로의 반환 타입이 void(뷰 경로 지정해주지 않음)
+	// -> jsp파일 경로가 sample/ex05.jsp
+	@GetMapping("/ex05")
+	public void ex05() {
+		log.info("ex05");
+	}
+	
+	
+	//자바 객체를 json타입으로 변환시켜서 클라이언트에 응답 ->  jackson Databind 사용
+	@GetMapping("/ex06") 
+	@ResponseBody
+	public SampleDTO ex06() {
+		SampleDTO sampleDTO = new SampleDTO();
+		
+		sampleDTO.setName("aaaa");
+		sampleDTO.setAge(100);
+		return sampleDTO;
+	}
+
+}
