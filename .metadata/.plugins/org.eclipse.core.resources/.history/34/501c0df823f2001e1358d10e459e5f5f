@@ -1,0 +1,13 @@
+package kr.com.ezen.persistence;
+
+public class JDBCTests {
+	
+	static {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}

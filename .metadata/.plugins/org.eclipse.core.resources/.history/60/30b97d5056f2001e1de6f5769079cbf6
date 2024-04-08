@@ -1,0 +1,8 @@
+package kr.com.ezen.mapper;
+
+import org.mybatis.spring.annotation.MapperScan;
+
+@MapperScan
+public interface MemberMapper {
+
+}

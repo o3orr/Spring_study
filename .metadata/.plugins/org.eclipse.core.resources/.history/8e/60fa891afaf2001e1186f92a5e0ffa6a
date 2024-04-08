@@ -1,0 +1,12 @@
+package kr.com.ezen.service;
+
+import kr.com.ezen.dto.MemberVO;
+
+public interface MemberService {
+	
+	public void insertMember(MemberVO vo);
+	public void updateMember(MemberVO vo);
+	public void deleteMember(MemberVO vo);
+	public void selectOneMember(MemberVO vo);
+	public void selectAllMember(MemberVO vo);
+}

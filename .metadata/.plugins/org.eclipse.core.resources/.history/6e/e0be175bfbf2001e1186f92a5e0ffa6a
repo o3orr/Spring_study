@@ -1,0 +1,47 @@
+package kr.com.ezen.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.com.ezen.dto.MemberVO;
+import kr.com.ezen.mapper.MemberMapper;
+
+public class MemberServiceImpl implements MemberService{
+	
+	@Autowired
+	private MemberMapper memberMapper;
+
+	
+	
+	@Override
+	public void insertMember(MemberVO vo) {
+		memberMapper.insertMember(vo);
+		
+	}
+
+	@Override
+	public void updateMember(MemberVO vo) {
+		
+		
+	}
+
+	@Override
+	public void deleteMember(int id) {
+		
+		
+	}
+
+	@Override
+	public MemberVO selectOne(int id) {
+		
+		return null;
+	}
+
+	@Override
+	public List<MemberVO> list() {
+		
+		return null;
+	}
+
+}

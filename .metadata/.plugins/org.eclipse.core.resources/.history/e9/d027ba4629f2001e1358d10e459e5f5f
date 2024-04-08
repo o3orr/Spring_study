@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 커넥션 풀 설정 -->
+	<!-- HikariConfig hikariConfig = new  HikariConfig();-->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		
+	
+	</bean>
+		
+</beans>
