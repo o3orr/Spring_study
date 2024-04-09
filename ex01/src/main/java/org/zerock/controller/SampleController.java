@@ -1,6 +1,7 @@
 package org.zerock.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpHeaders;
@@ -12,11 +13,13 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.SampleDTO;
 import org.zerock.domain.TodoDTO;
@@ -148,9 +151,10 @@ public class SampleController {
 	}
 	
 	
-	//자바 객체를 json타입으로 변환시켜서 클라이언트에 응답 ->  jackson Databind 사용
+	
+	//@ResponseBody 자바 객체를 json타입으로 변환시켜서 클라이언트에 응답 ->  jackson Databind 사용
 	@GetMapping("/ex06") 
-	@ResponseBody
+	@ResponseBody 
 	public SampleDTO ex06() {
 		SampleDTO sampleDTO = new SampleDTO();
 		
@@ -160,7 +164,20 @@ public class SampleController {
 	}
 	
 	
-	// json + 상태값(200, 300, 404, 500)
+	//@requestBody // JSON 값을 java객체로 변환해서 dto에 전달
+	@GetMapping("/ex066")
+	public String ex066(@RequestBody SampleDTO dto) {
+		log.info("-------ex066");
+		log.info(dto.getName());
+		log.info(dto.getAge());
+		log.info(dto);
+		
+		return "ex066";
+	}
+	
+	
+	
+	// json + 상태코드값(200, 300, 404, 500)
 	@GetMapping("/ex07")
 	public ResponseEntity<String> ex07() {
 		log.info("ex07..........");
@@ -196,6 +213,20 @@ public class SampleController {
 		headers.add("content-Type", "application/json; charset=utf-8");
 		
 		return new ResponseEntity<String>(msg, headers, HttpStatus.ACCEPTED); 
+	}
+	
+	@GetMapping("/exUpload")
+	public void exUpload() {
+		log.info("/exUpload");
+	}
+	
+	@PostMapping("/exUploadPost")
+	public void exUploadPost(ArrayList<MultipartFile> files) {
+		files.forEach(file -> {
+			log.info("-----------------------------");
+			log.info("name : " + file.getOriginalFilename());
+			log.info("size : " + file.getSize());
+		});
 	}
 	
 
