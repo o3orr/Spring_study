@@ -22,12 +22,20 @@ import lombok.extern.log4j.Log4j;
 public class BoardController {
 	
 	private final BoardService boardService;
+		
 	
 	@GetMapping("/list")
 	public void list(Model model) {
-		
+		log.info("list");
 		model.addAttribute("list", boardService.getList()); //views/board/list.jsp
 	}
+	
+	
+	@GetMapping("/register")
+	public void register() {
+		
+	}
+	
 	
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {
@@ -39,12 +47,14 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	
 	@GetMapping("/get")
 	public void get(@RequestParam("bno") long bno, Model model) {
 		log.info("get");
 		model.addAttribute("board", boardService.get(bno));
 		
 	}
+	
 	
 	@PostMapping("/modify")
 	public String modify(BoardVO board, RedirectAttributes rttr) {
@@ -55,6 +65,7 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
+	
 	
 	@PostMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
