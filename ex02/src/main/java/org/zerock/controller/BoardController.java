@@ -14,20 +14,23 @@ import org.zerock.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Log4j
 @RequiredArgsConstructor
 @RequestMapping("/board/*")
 public class BoardController {
-	
+
 	private final BoardService boardService;
-		
+	
+	
 	
 	@GetMapping("/list")
-	public void list(Model model) {
-		log.info("list");
-		model.addAttribute("list", boardService.getList()); //views/board/list.jsp
+	public void list(Model model){   
+		log.info("list........");
+		
+		model.addAttribute("list", boardService.getList());  //views/board/list.jsp
 	}
 	
 	
@@ -36,40 +39,40 @@ public class BoardController {
 		
 	}
 	
-	
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {
-		log.info("register");
+		log.info("register......." + board);
 		boardService.register(board);
 		
 		rttr.addFlashAttribute("result", board.getBno());
-		//list페이지로 다시이동
-		return "redirect:/board/list";
+		
+		return "redirect:/board/list";   //views/board/list.jsp
 	}
 	
-	
-	@GetMapping("/get")
-	public void get(@RequestParam("bno") long bno, Model model) {
-		log.info("get");
-		model.addAttribute("board", boardService.get(bno));
+	@GetMapping({"/get", "/modify"})
+	public void get(@RequestParam("bno") Long bno, Model model) {
+		log.info("get + modify......" + bno);
+		
+		model.addAttribute("board", boardService.get(bno)); // views/board/get.jsp
 		
 	}
-	
 	
 	@PostMapping("/modify")
 	public String modify(BoardVO board, RedirectAttributes rttr) {
-		log.info("modify");
-		if(boardService.modify(board)) { //board입력받아서 수정성공하면 true, 실패하면 false
-			rttr.addFlashAttribute("result", board.getBno());
+		
+		log.info("modify......" + board);
+		
+		if(boardService.modify(board)) {  //board입력받아서 수정 성공하면 true, 실패하면 false
+			rttr.addFlashAttribute("result", "success");
 		}
 		
 		return "redirect:/board/list";
+		
 	}
 	
-	
 	@PostMapping("/remove")
-	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
-		log.info("remove");
+	public String remove(@RequestParam("bno")Long bno, RedirectAttributes rttr) {
+		log.info("remove........" + bno);
 		
 		if(boardService.remove(bno)) {
 			rttr.addFlashAttribute("result", "success");
@@ -77,6 +80,4 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
-	
-	
 }

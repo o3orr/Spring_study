@@ -10,4 +10,5 @@
 <aop-project name="ex01"/>
 <aop-project name="ex88"/>
 <aop-project name="ex22"/>
+<aop-project name="ex02"/>
 </aop-reference-model>

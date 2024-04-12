@@ -11,20 +11,26 @@ import org.zerock.domain.BoardVO;
 import org.zerock.service.BoardService;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
 @RequestMapping("/board/*")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BoardController {
 
-	private BoardService service;
+	private final BoardService service;
 	
 	@GetMapping("/list")
 	public void list(Model model) {
 		log.info("list");
 		model.addAttribute("list", service.getList());
+	}
+	
+	@GetMapping("/register")
+	public void register() {
+		
 	}
 	
 	//등록 작업이 끝난 후 다시 목록화면으로 이동하기 위해서
@@ -36,9 +42,32 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	@GetMapping("/get")
+	//상세페이지와 수정페이지를 get방식으로 요청 -> 그냥 화면만 띄워줌
+	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("bno") Long bno, Model model) {
+		//파라미터로 bno를 받고 model에 get메서드로 얻어온 글의 정보를 띄워서 보내줌
 		log.info("/get");
 		model.addAttribute("board", service.get(bno));
 	}
+		
+	@PostMapping("/modify")
+	public String modify(BoardVO board, RedirectAttributes rttr) {
+		log.info("modify" + board);
+		
+		if(service.modity(board)) { //board입력받아서 수정 성공하면 true, 실패하면 false
+			rttr.addFlashAttribute("result", "success");
+		}
+		return "redirect:/board/list";
+	}
+	
+	@PostMapping("/remove")
+	public String remove(@RequestParam("bno")Long bno, RedirectAttributes rttr) {
+		log.info("remove" + bno);
+		
+		if(service.remove(bno)) {
+			rttr.addFlashAttribute("result", "success");
+		}
+		
+		return "redirect:/board/list";
+	} 
 }
