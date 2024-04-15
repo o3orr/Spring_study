@@ -28,6 +28,8 @@ public class BoardControllerTests {
 	@Autowired
 	private WebApplicationContext ctx;
 	private MockMvc mockMvc;
+
+	private ModelMap modelMap;
 	
 	@Before
 	public void setup() {
@@ -65,5 +67,15 @@ public class BoardControllerTests {
 					).andReturn().getModelAndView().getViewName();
 			log.info(resultPage);
 		}
+	
+		@Test
+	public void testListPagging() throws Exception {
+		ModelMap modelMap = mockMvc.perform(MockMvcRequestBuilders.get("/board/list")
+				.param("pageNum", "2")
+				.param("amount", "10"))
+				.andReturn().getModelAndView().getModelMap();
+		
+			log.info(modelMap);
+	}
 
 }

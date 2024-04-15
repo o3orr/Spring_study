@@ -35,5 +35,6 @@ public class BoardServiceImplTest {
 		boardService.register(board);
 		log.info("생성된 게시물 번호 : " + board.getBno());
 	}
+	
 
 }
