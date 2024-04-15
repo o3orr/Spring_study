@@ -7,18 +7,23 @@ import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 
 public interface BoardMapper {
+	
+//	@Select("select * from tbl_board where bno > 0")
 	public List<BoardVO> getList();
 	
-	//페이징 처리
 	public List<BoardVO> getListWithPaging(Criteria cri);
 	
 	public void insert(BoardVO board);
 	
-	//db에 몇번째 데이터가 들어갔는지 알고싶을때
 	public void insertSelectKey(BoardVO board);
 	
-	
 	public BoardVO read(Long bno);
-	public int update(BoardVO boardVO);
+	
 	public int delete(Long bno);
+	
+	public int update(BoardVO boardVO);
+	
+	public int getTotalCount(Criteria cri);
+	
 }
+

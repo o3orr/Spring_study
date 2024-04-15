@@ -6,11 +6,16 @@ import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 
 public interface BoardService {
-		
-	//사용자들에게 친숙한 메서드이름
+
 	public void register(BoardVO board);
+	
 	public BoardVO get(Long bno);
+	
 	public boolean modify(BoardVO board);
+	
 	public boolean remove(Long bno);
+	
 	public List<BoardVO> getList(Criteria cri);
+	
+	public int getTotal(Criteria cri);
 }
