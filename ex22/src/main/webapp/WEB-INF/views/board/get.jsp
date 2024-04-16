@@ -43,8 +43,11 @@
   <button data-oper='modify' class="btn btn-default">Modify</button>
   <button data-oper="list" class="btn btn-info">List</button>
   
+  <!-- modify, list로 요청할때 pageNum과 amount가 같이 가도록 -->
   <form id="operForm" action="/board/modify" method="get">
   	<input type="hidden" id="bno" name="bno" value="${board.bno }">
+  	<input type="hidden" name="pageNum" value="${cri.pageNum }">
+  	<input type="hidden" name="amount" value="${cri.amount }">
   </form>
 <script>
 	$(document).ready(function(){

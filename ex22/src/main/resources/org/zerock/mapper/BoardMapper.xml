@@ -38,4 +38,21 @@
   	updateDate = sysdate
   	where bno = #{bno}
   </update>
+  
+  <select id="getListWithPaging">
+  	<![CDATA[
+  		select
+  		bno, title, content, writer, regdate, updateDate
+  		from(
+  		select
+  		/*+ index_desc(tbl_board pk_board) */
+  		rownum rn, bno, title, content, writer, regdate, updateDate
+  		from
+  			tbl_board
+  		where rownum <= 20
+  		)
+  		where rn > 10
+  	]]>
+  	
+  </select>
 </mapper>
