@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
-<aop-project name="SampleTest5"/>
 <aop-project name="SampleTest3"/>
-<aop-project name="ex01"/>
+<aop-project name="SampleTest5"/>
 <aop-project name="MybatisTest"/>
+<aop-project name="ex01"/>
+<aop-project name="ex89"/>
 <aop-project name="SampleTest"/>
 <aop-project name="SampleTest4"/>
 <aop-project name="SampleTest2"/>
-<aop-project name="ex00"/>
-<aop-project name="ex88"/>
-<aop-project name="ex22"/>
 <aop-project name="ex02"/>
+<aop-project name="ex22"/>
+<aop-project name="ex88"/>
+<aop-project name="ex00"/>
 </aop-reference-model>
