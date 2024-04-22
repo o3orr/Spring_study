@@ -41,6 +41,27 @@
 		</table>
 	</div>
 	
+	<!-- 페이징 처리 -->
+	 <div class="container">
+		<ul class="pagination justify-content-end">
+						  
+			<c:if test="${pageMaker.prev}">
+				<li class="page-item"><a class="page-link" href="${pageMaker.startPage-1}">Previous</a></li>
+			</c:if>
+							   
+			<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+				 <li class="page-item ${pageMaker.cri.pageNum == num? 'active' : '' }">
+					<a class="page-link" href="${num}">${num}</a>
+				</li>
+			</c:forEach>
+							   
+			 <c:if test="${pageMaker.next}">
+				 <li class="page-item">
+				 	<a class="page-link" href="${pageMaker.endPage + 1}">Next</a></li>
+			 </c:if>
+			</ul>
+		</div>    <!-- End 페이징 처리 -->
+	
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$("#regBtn").on("click", function(){
