@@ -16,6 +16,8 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+
+
 <body>
 	<h1>Register page</h1>
 	<form action="/board/register" method="post">
